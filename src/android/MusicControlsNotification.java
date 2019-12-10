@@ -69,7 +69,7 @@ public class MusicControlsNotification {
 			mChannel.setDescription(description);
 
 			this.notificationManager.createNotificationChannel(mChannel);
-    }
+		}
 
 	}
 
@@ -85,18 +85,18 @@ public class MusicControlsNotification {
 	}
 
 	private void createNotification() {
-		final Notification noti = this.notificationBuilder.build();
-    noti.defaults |= Notification.DEFAULT_SOUND;
-    noti.defaults |= Notification.DEFAULT_VIBRATE;
-    noti.defaults |= Notification.DEFAULT_LIGHTS;
-    noti.flags |= Notification.FLAG_AUTO_CANCEL;
-    MusicControlsNotificationKiller killer = killer_service.get();
+		final Notification noti = this.notificationBuilder.setSound(null).build();
+		// noti.defaults |= Notification.DEFAULT_SOUND;
+		// noti.defaults |= Notification.DEFAULT_VIBRATE;
+		// noti.defaults |= Notification.DEFAULT_LIGHTS;
+		noti.flags |= Notification.FLAG_AUTO_CANCEL;
+		MusicControlsNotificationKiller killer = killer_service.get();
 		if (killer != null) {
-      if (this.infos.dismissable) {
-        killer.startForeground(0,null);
-      } else {
-        killer.setNotification(noti);
-      }
+			if (this.infos.dismissable) {
+				killer.startForeground(0,null);
+			} else {
+				killer.setNotification(noti);
+			}
 		}
 		this.notificationManager.notify(this.notificationID, noti);
 	}
@@ -224,7 +224,7 @@ public class MusicControlsNotification {
 		if (!infos.ticker.isEmpty()){
 			builder.setTicker(infos.ticker);
 		}
-		
+
 		builder.setPriority(Notification.PRIORITY_MAX);
 
 		//If 5.0 >= set the controls to be visible on lockscreen
@@ -305,10 +305,10 @@ public class MusicControlsNotification {
 			for (int i = 0; i < nbControls; ++i) {
 				args[i] = i;
 			}
-      Notification.MediaStyle style = new MediaStyle();
-      style.setShowActionsInCompactView(args);
-      MediaSession session = (MediaSession) this.mediaSessionCompat.getMediaSession();
-      style.setMediaSession(session.getSessionToken());
+			Notification.MediaStyle style = new MediaStyle();
+			style.setShowActionsInCompactView(args);
+			MediaSession session = (MediaSession) this.mediaSessionCompat.getMediaSession();
+			style.setMediaSession(session.getSessionToken());
 			builder.setStyle(style);
 		}
 		this.notificationBuilder = builder;
