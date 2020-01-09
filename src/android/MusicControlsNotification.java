@@ -76,7 +76,7 @@ public class MusicControlsNotification {
 	// Show or update notification
 	public void updateNotification(MusicControlsInfos newInfos){
 		// Check if the cover has changed
-		if (!newInfos.cover.isEmpty() && (this.infos == null || !newInfos.cover.equals(this.infos.cover))){
+		if (this.bitmapCover == null || (!newInfos.cover.isEmpty() && (this.infos == null || !newInfos.cover.equals(this.infos.cover)))){
 			this.getBitmapCover(newInfos.cover);
 		}
 		this.infos = newInfos;
